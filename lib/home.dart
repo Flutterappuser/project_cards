@@ -1,4 +1,7 @@
+import 'Card1.dart';
+import 'Card2.dart';
 import 'package:flutter/material.dart';
+import 'Card3.dart';
 import 'themeapp.dart';
 class home extends StatefulWidget {
   const home({Key? key}) : super(key: key);
@@ -13,6 +16,29 @@ class _homeState extends State<home> {
   Color? colwhite = Colors.white ;
   Color? colblack = Colors.black ;
   var theme = FooderlichTheme.dark();
+
+  // 7
+  int selectedIndex = 0;
+
+// 8
+  static List<Widget> pages = <Widget>[
+    // TODO: Replace with Card1
+    Card1(),
+    // TODO: Replace with Card2
+    Card2(),
+    // TODO: Replace with Card3
+    Card3(),
+  ];
+
+// 9
+  void _onItemTapped(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return new Theme(data: theme, child: Scaffold(
@@ -45,10 +71,33 @@ class _homeState extends State<home> {
         ],
       ),
       // TODO: Style the body text
-      body: Center(
-        child: Text('Let\'s get cooking 👩‍🍳',
-            style: theme.textTheme.headline1),
+      body: pages[selectedIndex],
+      // 4
+      bottomNavigationBar: BottomNavigationBar(
+        // 5
+        selectedItemColor:
+        Theme.of(context).textSelectionTheme.selectionColor,
+        // 10
+        currentIndex: selectedIndex,
+// 11
+        onTap: _onItemTapped,
+        // 6
+        items: <BottomNavigationBarItem>[
+          const BottomNavigationBarItem(
+            icon: Icon(Icons.card_giftcard),
+            label: 'Card',
+          ),
+          const BottomNavigationBarItem(
+            icon: Icon(Icons.card_giftcard),
+            label: 'Card2',
+          ),
+          const BottomNavigationBarItem(
+            icon: Icon(Icons.card_giftcard),
+            label: 'Card3',
+          ),
+        ],
       ),
+
     ),);
   }
 }
